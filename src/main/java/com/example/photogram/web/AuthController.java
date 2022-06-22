@@ -1,5 +1,6 @@
 package com.example.photogram.web;
 
+import com.example.photogram.web.dto.auth.SignupDto;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -13,7 +14,7 @@ public class AuthController {
     }
 
     @PostMapping("/auth/signup")
-    public String signup() {
+    public String signup(SignupDto signupDto) {
         return "redirect:/";
     }
 

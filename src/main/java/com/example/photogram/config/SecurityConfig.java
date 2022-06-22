@@ -15,5 +15,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .and()
                 .formLogin().loginPage("/auth/signin")
                 .defaultSuccessUrl("/");
+        http.headers().frameOptions().disable();
     }
 }
