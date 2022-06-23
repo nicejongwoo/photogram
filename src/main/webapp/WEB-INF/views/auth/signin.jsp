@@ -21,7 +21,7 @@
                 <article class="login__form__container">
                    <!--로그인 폼-->
                    <div class="login__form">
-                        <h1><img src="/images/logo.jpg" alt=""></h1>
+                        <h1>로그인</h1>
 
                         <!--로그인 인풋-->
                         <form class="login__input" >
