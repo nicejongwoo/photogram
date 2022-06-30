@@ -20,10 +20,13 @@ public class Users {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(unique = true)
+    @Column(unique = true, length = 20)
     private String username;
+    @Column(nullable = false)
     private String password;
+    @Column(nullable = false)
     private String email;
+    @Column(nullable = false)
     private String name;
     private String bio;
     private String website;
