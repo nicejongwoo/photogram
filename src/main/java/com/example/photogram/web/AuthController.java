@@ -1,6 +1,7 @@
 package com.example.photogram.web;
 
 import com.example.photogram.domain.user.Users;
+import com.example.photogram.handler.CustomValidationException;
 import com.example.photogram.service.UserService;
 import com.example.photogram.web.dto.auth.SignupDto;
 import lombok.RequiredArgsConstructor;
@@ -30,7 +31,7 @@ public class AuthController {
     }
 
     @PostMapping("/auth/signup")
-    public @ResponseBody String signup(@Valid SignupDto signupDto, BindingResult bindingResult) {
+    public String signup(@Valid SignupDto signupDto, BindingResult bindingResult) {
 
         Map<String, Object> errorMap = new HashMap<>();
         if (bindingResult.hasErrors()) {
@@ -38,7 +39,7 @@ public class AuthController {
             for (FieldError fieldError : fieldErrors) {
                 errorMap.put(fieldError.getField(), fieldError.getDefaultMessage());
             }
-            return "error";
+            throw new CustomValidationException("유효성 검증 실패", errorMap);
         } else {
             Users users = signupDto.toEntity();
             users.setPassword(bCryptPasswordEncoder.encode(signupDto.getPassword()));
