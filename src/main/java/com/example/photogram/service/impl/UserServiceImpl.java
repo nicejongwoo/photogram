@@ -1,6 +1,7 @@
 package com.example.photogram.service.impl;
 
 import com.example.photogram.domain.user.Users;
+import com.example.photogram.handler.CustomValidationApiException;
 import com.example.photogram.repository.UserRepository;
 import com.example.photogram.service.UserService;
 import lombok.RequiredArgsConstructor;
@@ -25,9 +26,8 @@ public class UserServiceImpl implements UserService {
     @Override
     public Users update(long id, Users users) {
 
-        System.out.println("users = " + users.getGender());
         //persistent
-        Users usersEntity = userRepository.findById(id).get();
+        Users usersEntity = userRepository.findById(id).orElseThrow(() -> new CustomValidationApiException("회원 정보를 찾을 수 없습니다."));
 
         //update (dirty checking)
         usersEntity.setName(users.getName());

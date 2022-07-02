@@ -13,7 +13,13 @@ function update(userId) {
         location.href=`/user/${userId}`;
     }).fail(error => {
         console.log("failed update: ", error)
-        alert(JSON.stringify(error.responseJSON.data))
+        if(error.responseJSON.data == null) {
+            alert(JSON.stringify(error.responseJSON.message))
+
+        } else {
+            alert(JSON.stringify(error.responseJSON.data))
+        }
+
     });
 
 }
