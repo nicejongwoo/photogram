@@ -21,7 +21,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/", "/user/**", "/image/**", "/subscribe/**", "/comment/**").authenticated()
                 .anyRequest().permitAll()
                 .and()
-                .formLogin().loginPage("/auth/signin")
+                .formLogin()
+                .loginPage("/auth/signin") //GET
+                .loginProcessingUrl("/auth/signin") //POST
                 .defaultSuccessUrl("/");
         http.headers().frameOptions().disable();
     }
