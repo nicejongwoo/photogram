@@ -3,10 +3,14 @@ package com.example.photogram.web.dto.user;
 import com.example.photogram.domain.user.Users;
 import lombok.Data;
 
+import javax.validation.constraints.NotBlank;
+
 @Data
 public class UserRequestDto {
 
+    @NotBlank
     private String name;
+    @NotBlank
     private String password;
     private String bio;
     private String website;

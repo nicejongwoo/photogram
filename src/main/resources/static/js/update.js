@@ -9,10 +9,11 @@ function update(userId) {
         contentType: "application/x-www-form-urlencoded; charset=utf-8",
         dataType: "json"
     }).done(res => {
-        //console.log("success update: ", res)
+        console.log("success update: ", res)
         location.href=`/user/${userId}`;
     }).fail(error => {
         console.log("failed update: ", error)
+        alert(JSON.stringify(error.responseJSON.data))
     });
 
 }

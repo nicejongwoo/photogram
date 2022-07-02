@@ -26,7 +26,7 @@
             <div class="content-item__02">
                 <div class="item__title">이름</div>
                 <div class="item__input">
-                    <input type="text" name="name" placeholder="이름"
+                    <input type="text" name="name" placeholder="이름" required="required"
                            value="${principal.users.name}" />
                 </div>
             </div>
@@ -40,7 +40,7 @@
             <div class="content-item__04">
                 <div class="item__title">패스워드</div>
                 <div class="item__input">
-                    <input type="password" name="password" placeholder="패스워드"  />
+                    <input type="password" name="password" placeholder="패스워드" required="required" />
                 </div>
             </div>
             <div class="content-item__05">
