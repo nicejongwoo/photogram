@@ -1,5 +1,6 @@
 package com.example.photogram.handler;
 
+import com.example.photogram.handler.exception.CustomApiException;
 import com.example.photogram.util.Script;
 import com.example.photogram.web.dto.CMRespDto;
 import org.springframework.http.HttpStatus;
@@ -19,5 +20,10 @@ public class ControllerExceptionHandler {
     @ExceptionHandler(CustomValidationApiException.class)
     public ResponseEntity<?> validationApiException(CustomValidationApiException e) {
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new CMRespDto<>(e.getMessage(), e.getErrorMap(), -1));
+    }
+
+    @ExceptionHandler(CustomApiException.class)
+    public ResponseEntity<?> apiException(CustomApiException e) {
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new CMRespDto<>(e.getMessage(), null, -1));
     }
 }

@@ -19,8 +19,6 @@ public class SubscribeApiController {
 
     @PostMapping("/api/subscribe/{toUserId}")
     public ResponseEntity<?> subscribe(@PathVariable long toUserId, @AuthenticationPrincipal PrincipalDetails principalDetails) {
-        System.out.println("toUserId = " + toUserId);
-        System.out.println("principalDetails = " + principalDetails.getUsers().getId());
         subscribeService.subscribe(toUserId, principalDetails.getUsers().getId());
         return ResponseEntity.ok(new CMRespDto<>("구독 성공", null, 1));
     }
