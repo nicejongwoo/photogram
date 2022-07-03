@@ -33,3 +33,6 @@ spring:
 logging:
     level:
         root: DEBUG
+
+file:
+    path: upload/
