@@ -1,6 +1,7 @@
 package com.example.photogram.web;
 
 import com.example.photogram.config.auth.PrincipalDetails;
+import com.example.photogram.handler.CustomValidationException;
 import com.example.photogram.service.ImageService;
 import com.example.photogram.web.dto.image.ImageUploadDto;
 import lombok.RequiredArgsConstructor;
@@ -32,6 +33,9 @@ public class ImageController {
 
     @PostMapping("/image")
     public String imageUpload(ImageUploadDto imageUploadDto, @AuthenticationPrincipal PrincipalDetails principalDetails) {
+        if (imageUploadDto.getFile().isEmpty()) {
+            throw new CustomValidationException("파일이 없습니다.", null);
+        }
         imageService.uploadImage(imageUploadDto, principalDetails);
         return "redirect:/user/" + principalDetails.getUsers().getId();
     }

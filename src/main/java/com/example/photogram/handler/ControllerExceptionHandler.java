@@ -8,13 +8,18 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MaxUploadSizeExceededException;
 
 @RestController
 @ControllerAdvice
 public class ControllerExceptionHandler {
-    @ExceptionHandler(CustomValidationException.class)
+    @ExceptionHandler(value = {CustomValidationException.class})
     public String validationException(CustomValidationException e) {
-        return Script.back(e.getErrorMap().toString());
+        if (e.getErrorMap() == null) {
+            return Script.back(e.getMessage());
+        } else {
+            return Script.back(e.getErrorMap().toString());
+        }
     }
 
     @ExceptionHandler(CustomValidationApiException.class)
