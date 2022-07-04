@@ -2,12 +2,14 @@ package com.example.photogram.domain.image;
 
 import com.example.photogram.domain.user.Users;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
 
+@Builder
 @NoArgsConstructor
 @AllArgsConstructor
 @Getter

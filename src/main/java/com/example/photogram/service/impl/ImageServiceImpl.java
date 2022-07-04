@@ -1,6 +1,7 @@
 package com.example.photogram.service.impl;
 
 import com.example.photogram.config.auth.PrincipalDetails;
+import com.example.photogram.domain.image.Image;
 import com.example.photogram.repository.ImageRepository;
 import com.example.photogram.service.ImageService;
 import com.example.photogram.web.dto.image.ImageUploadDto;
@@ -38,5 +39,9 @@ public class ImageServiceImpl implements ImageService {
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
+
+        Image image = imageUploadDto.toEntity(imageFileName, principalDetails.getUsers());
+
+        Image save = imageRepository.save(image);
     }
 }
