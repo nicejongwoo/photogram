@@ -1,17 +1,18 @@
 package com.example.photogram.domain.user;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import com.example.photogram.domain.image.Image;
+import lombok.*;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-@Data
+@Getter
+@Setter
 @Entity
 public class Users {
 
@@ -33,6 +34,9 @@ public class Users {
     private String gender;
     private String profileImageUrl;
     private String role;
+
+    @OneToMany(mappedBy = "users", fetch = FetchType.LAZY)
+    private List<Image> images;
 
     private LocalDateTime createDate;
 

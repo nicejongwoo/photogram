@@ -1,6 +1,7 @@
 package com.example.photogram.handler;
 
 import com.example.photogram.handler.exception.CustomApiException;
+import com.example.photogram.handler.exception.CustomException;
 import com.example.photogram.util.Script;
 import com.example.photogram.web.dto.CMRespDto;
 import org.springframework.http.HttpStatus;
@@ -20,6 +21,11 @@ public class ControllerExceptionHandler {
         } else {
             return Script.back(e.getErrorMap().toString());
         }
+    }
+
+    @ExceptionHandler(value = {CustomException.class})
+    public String exception(CustomException e) {
+        return Script.back(e.getMessage());
     }
 
     @ExceptionHandler(CustomValidationApiException.class)

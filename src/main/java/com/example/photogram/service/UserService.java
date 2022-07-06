@@ -7,4 +7,5 @@ public interface UserService {
     Users createUser(Users users);
     Users update(long id, Users users);
 
+    Users getUserProfile(long id);
 }

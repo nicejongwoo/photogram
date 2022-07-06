@@ -2,6 +2,7 @@ package com.example.photogram.service.impl;
 
 import com.example.photogram.domain.user.Users;
 import com.example.photogram.handler.CustomValidationApiException;
+import com.example.photogram.handler.exception.CustomException;
 import com.example.photogram.repository.UserRepository;
 import com.example.photogram.service.UserService;
 import lombok.RequiredArgsConstructor;
@@ -38,5 +39,11 @@ public class UserServiceImpl implements UserService {
         usersEntity.setWebsite(users.getWebsite());
 
         return usersEntity;
+    }
+
+    @Override
+    public Users getUserProfile(long id) {
+        Users users = userRepository.findById(id).orElseThrow(() -> new CustomException("해당하는 유저가 없습니다."));
+        return users;
     }
 }
