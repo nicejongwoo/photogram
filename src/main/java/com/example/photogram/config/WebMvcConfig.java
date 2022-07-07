@@ -14,10 +14,9 @@ public class WebMvcConfig implements WebMvcConfigurer {
 
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
-        System.out.println("filePath = " + filePath);
         registry
                 .addResourceHandler("/upload/**")
-                .addResourceLocations("file:///./" + filePath)
+                .addResourceLocations("file:" + filePath)
 //                .setCachePeriod(60 * 10 * 6) // 1h
                 .resourceChain(true)
                 .addResolver(new PathResourceResolver());
