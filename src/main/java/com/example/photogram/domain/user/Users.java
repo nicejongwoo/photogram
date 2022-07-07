@@ -1,6 +1,7 @@
 package com.example.photogram.domain.user;
 
 import com.example.photogram.domain.image.Image;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.*;
 
 import javax.persistence.*;
@@ -35,6 +36,7 @@ public class Users {
     private String profileImageUrl;
     private String role;
 
+    @JsonIgnoreProperties(value = {"users"})
     @OneToMany(mappedBy = "users", fetch = FetchType.LAZY)
     private List<Image> images;
 
