@@ -1,10 +1,12 @@
 package com.example.photogram.service.impl;
 
+import com.example.photogram.config.auth.PrincipalDetails;
 import com.example.photogram.domain.user.Users;
 import com.example.photogram.handler.CustomValidationApiException;
 import com.example.photogram.handler.exception.CustomException;
 import com.example.photogram.repository.UserRepository;
 import com.example.photogram.service.UserService;
+import com.example.photogram.web.dto.user.UserProfileDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -42,8 +44,15 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public Users getUserProfile(long id) {
-        Users users = userRepository.findById(id).orElseThrow(() -> new CustomException("해당하는 유저가 없습니다."));
-        return users;
+    public UserProfileDto getUserProfile(long pageUserId, PrincipalDetails principalDetails) {
+
+        Users users = userRepository.findById(pageUserId).orElseThrow(() -> new CustomException("해당하는 유저가 없습니다."));
+
+        return UserProfileDto.builder()
+                .ownerPageState(pageUserId == principalDetails.getUsers().getId())
+                .imageCount(users.getImages().size())
+                .users(users)
+                .build();
+
     }
 }
