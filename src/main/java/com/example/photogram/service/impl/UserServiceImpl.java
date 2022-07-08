@@ -4,6 +4,7 @@ import com.example.photogram.config.auth.PrincipalDetails;
 import com.example.photogram.domain.user.Users;
 import com.example.photogram.handler.CustomValidationApiException;
 import com.example.photogram.handler.exception.CustomException;
+import com.example.photogram.repository.SubscribeRepository;
 import com.example.photogram.repository.UserRepository;
 import com.example.photogram.service.UserService;
 import com.example.photogram.web.dto.user.UserProfileDto;
@@ -17,6 +18,7 @@ import org.springframework.transaction.annotation.Transactional;
 public class UserServiceImpl implements UserService {
 
     private final UserRepository userRepository;
+    private final SubscribeRepository subscribeRepository;
     private final BCryptPasswordEncoder bCryptPasswordEncoder;
 
     @Override
@@ -46,12 +48,19 @@ public class UserServiceImpl implements UserService {
     @Override
     public UserProfileDto getUserProfile(long pageUserId, PrincipalDetails principalDetails) {
 
-        Users users = userRepository.findById(pageUserId).orElseThrow(() -> new CustomException("해당하는 유저가 없습니다."));
+        Users toUser = userRepository.findById(pageUserId).orElseThrow(() -> new CustomException("해당하는 유저가 없습니다."));
+
+        Users fromUser = userRepository.findById(principalDetails.getUsers().getId()).orElseThrow(() -> new CustomException("해당하는 유저가 없습니다."));
+
+        int subscribeCount = subscribeRepository.countByToUser(toUser);
+        int subscribeState = subscribeRepository.countByFromUserAndToUser(fromUser, toUser);
 
         return UserProfileDto.builder()
                 .ownerPageState(pageUserId == principalDetails.getUsers().getId())
-                .imageCount(users.getImages().size())
-                .users(users)
+                .imageCount(toUser.getImages().size())
+                .subscribeState(subscribeState == 1)
+                .subscribeCount(subscribeCount)
+                .users(toUser)
                 .build();
 
     }
