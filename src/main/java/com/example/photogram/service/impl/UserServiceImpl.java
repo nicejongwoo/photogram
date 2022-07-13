@@ -52,14 +52,14 @@ public class UserServiceImpl implements UserService {
 
         Users fromUser = userRepository.findById(principalDetails.getUsers().getId()).orElseThrow(() -> new CustomException("해당하는 유저가 없습니다."));
 
-        int subscribeCount = subscribeRepository.countByToUser(toUser);
-        int subscribeState = subscribeRepository.countByFromUserAndToUser(fromUser, toUser);
+        long subscribeCount = subscribeRepository.countByFromUser(toUser);
+        long subscribeState = subscribeRepository.countByFromUserAndToUser(fromUser, toUser);
 
         return UserProfileDto.builder()
                 .ownerPageState(pageUserId == principalDetails.getUsers().getId())
                 .imageCount(toUser.getImages().size())
                 .subscribeState(subscribeState == 1)
-                .subscribeCount(subscribeCount)
+                .subscribeCount((int) subscribeCount)
                 .users(toUser)
                 .build();
 

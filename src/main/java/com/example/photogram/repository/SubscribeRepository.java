@@ -13,9 +13,9 @@ import java.util.List;
 public interface SubscribeRepository extends JpaRepository<Subscribe, Integer> {
     void deleteByToUserIdAndFromUserId(long toUserId, long fromUserId);
 
-    int countByToUser(Users toUser);
+    long countByFromUser(Users fromUser);
 
-    int countByFromUserAndToUser(Users fromUser, Users toUser);
+    long countByFromUserAndToUser(Users fromUser, Users toUser);
 
     String query =
             "select " +
