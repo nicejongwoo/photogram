@@ -6,9 +6,12 @@ import com.example.photogram.handler.exception.CustomApiException;
 import com.example.photogram.repository.SubscribeRepository;
 import com.example.photogram.repository.UserRepository;
 import com.example.photogram.service.SubscribeService;
+import com.example.photogram.web.dto.subscribe.SubscribeDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.List;
 
 @RequiredArgsConstructor
 @Service
@@ -35,10 +38,15 @@ public class SubscribeServiceImpl implements SubscribeService {
         }
     }
 
-    @javax.transaction.Transactional
+    @Transactional
     @Override
     public void unSubscribe(long toUserId, long fromUserId) {
         subscribeRepository.deleteByToUserIdAndFromUserId(toUserId, fromUserId);
 
+    }
+
+    @Override
+    public List<SubscribeDto> getSubscribeList(Long principalId, int pageUserId) {
+        return subscribeRepository.getFindSubscribeList(principalId, pageUserId);
     }
 }
