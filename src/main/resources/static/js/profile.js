@@ -68,9 +68,9 @@ function getSubscribeModalItem(u) {
 
 	if(!u.equalUserState){ //동일유저가 아닐 때 버튼이 만들어져야함
 		if (u.subscribeState) { // 구독한 상태
-			item += `<button class="cta blue" onClick="toggleSubscribeModal(this)">구독취소</button>`;
+			item += `<button class="cta blue" onClick="toggleSubscribe(${u.userId}, this)">구독취소</button>`;
 		}else{ // 구독안한 상태
-			item += `<button class="cta" onClick="toggleSubscribeModal(this)">구독하기</button>`;
+			item += `<button class="cta" onClick="toggleSubscribe(${u.userId}, this)">구독하기</button>`;
 		}
 	}
 	item +=`
@@ -81,15 +81,15 @@ function getSubscribeModalItem(u) {
 
 
 // (3) 구독자 정보 모달에서 구독하기, 구독취소
-function toggleSubscribeModal(obj) {
-	if ($(obj).text() === "구독취소") {
-		$(obj).text("구독하기");
-		$(obj).toggleClass("blue");
-	} else {
-		$(obj).text("구독취소");
-		$(obj).toggleClass("blue");
-	}
-}
+// function toggleSubscribeModal(obj) {
+// 	if ($(obj).text() === "구독취소") {
+// 		$(obj).text("구독하기");
+// 		$(obj).toggleClass("blue");
+// 	} else {
+// 		$(obj).text("구독취소");
+// 		$(obj).toggleClass("blue");
+// 	}
+// }
 
 // (4) 유저 프로파일 사진 변경 (완)
 function profileImageUpload() {
